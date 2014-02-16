@@ -7,7 +7,8 @@
   :test-paths ["test/clj"]
   :profiles {:dev {:dependencies [[org.clojure/clojurescript "0.0-2138"]
                                   [im.chit/gyr "0.4.0"]
-                                  [midje "1.6.0"]]
+                                  [midje "1.6.0"]
+                                  [lein-midje "3.1.3"]]
                    :plugins [[lein-cljsbuild "1.0.0"]]}}
   :cljsbuild {:builds [{:source-paths ["src", "test/cljs"]
                        :compiler {:output-to "test/purnam.walk.js"
