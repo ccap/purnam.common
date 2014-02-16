@@ -1,10 +1,10 @@
-(ns purnam.test-walk-expand
+(ns purnam.test-common-expand
   (:use midje.sweet)
-  (:require [purnam.core.expand :as j]
-            [purnam.core.common :refer :all]
+  (:require [purnam.common.expand :as j]
+            [purnam.common :refer :all]
             [purnam.checks :refer :all]))
 
-(swap! purnam.core.expand/*exclusions* conj 'go.n)
+(swap! purnam.common.expand/*exclusions* conj 'go.n)
 
 (fact "expand-sym"
   (j/expand-sym 'this)
@@ -20,16 +20,16 @@
   => 'j/.a
 
   (j/expand-sym 'j/.a.b)
-  => '(purnam.core.accessors/aget-in j/.a ["b"])
+  => '(purnam.common.accessors/aget-in j/.a ["b"])
 
   (j/expand-sym 'a.b)
-  => '(purnam.core.accessors/aget-in a ["b"])
+  => '(purnam.common.accessors/aget-in a ["b"])
 
   (j/expand-sym 'j/a.b)
-  => '(purnam.core.accessors/aget-in j/a ["b"])
+  => '(purnam.common.accessors/aget-in j/a ["b"])
 
   (j/expand-sym 'a.b.c)
-  => '(purnam.core.accessors/aget-in a ["b" "c"])
+  => '(purnam.common.accessors/aget-in a ["b" "c"])
 
   (j/expand-sym 'a.b.c/d)
   => 'a.b.c/d)
@@ -44,7 +44,7 @@
   => '(purnam.test-walk-expand/test.sym 1)
 
   (j/expand '(a.b 1))
-  => '(let [obj# (purnam.core.accessors/aget-in a [])
+  => '(let [obj# (purnam.common.accessors/aget-in a [])
             fn#  (aget obj# "b")]
         (.call fn# obj# 1)))
 
@@ -53,7 +53,7 @@
   => '(go.n 1)
 
   (j/expand '(do.n 1))
-  => '(let [obj# (purnam.core.accessors/aget-in do [])
+  => '(let [obj# (purnam.common.accessors/aget-in do [])
             fn# (aget obj# "n")]
         (.call fn# obj# 1))
 

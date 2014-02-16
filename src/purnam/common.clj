@@ -1,4 +1,4 @@
-(ns purnam.core.common)
+(ns purnam.common)
 
 (defn hash-set? [obj]
   (instance? clojure.lang.APersistentSet obj))

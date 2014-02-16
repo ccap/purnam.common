@@ -1,9 +1,6 @@
 (ns purnam.test-walk-scope
   (:use midje.sweet)
-  (:require [purnam.core.scope :as j]
-            ;;[purnam.core.common :refer :all]
-            ;;[purnam.checks :refer :all]
-            ))
+(:require [purnam.common.scope :as j]))
 
 (fact "has-sym-root?"
   (j/has-sym-root? 'hello 'hello) => true

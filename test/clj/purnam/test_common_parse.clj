@@ -1,6 +1,6 @@
-(ns purnam.test-walk-parse
+(ns purnam.test-common-parse
   (:use midje.sweet)
-  (:require [purnam.core.parse :as j]))
+  (:require [purnam.common.parse :as j]))
 
 (fact "split-dotted"
   (j/split-dotted "a") => ["a"]
@@ -77,10 +77,10 @@
 
 (fact "parse-exp"
   (j/parse-exp 'a.b)
-  => '(purnam.core.accessors/aget-in a ["b"])
+  => '(purnam.common.accessors/aget-in a ["b"])
 
   (j/parse-exp 'a.this)
-  => '(purnam.core.accessors/aget-in a ["this"])
+  => '(purnam.common.accessors/aget-in a ["this"])
 
   (j/parse-exp 'this.a.b)
-  => '(purnam.core.accessors/aget-in (js* "this") ["a" "b"]))
+  => '(purnam.common.accessors/aget-in (js* "this") ["a" "b"]))

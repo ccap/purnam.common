@@ -1,6 +1,6 @@
-(ns purnam.core.var
-  (:require [purnam.core.common :refer :all]
-            [purnam.core.scope :refer [change-roots-map]]))
+(ns purnam.common.var
+  (:require [purnam.common.common :refer :all]
+            [purnam.common.scope :refer [change-roots-map]]))
             
 (declare make-var)
 

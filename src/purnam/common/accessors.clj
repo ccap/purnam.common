@@ -1,4 +1,4 @@
-(ns purnam.core.accessors)
+(ns purnam.common.accessors)
 
 (defn aget-in-form
   [var arr]

@@ -1,6 +1,6 @@
-(ns purnam.test-walk-accessors
+(ns purnam.test-common-accessors
   (:use midje.sweet)
-  (:require [purnam.core.accessors :as j]
+  (:require [purnam.common.accessors :as j]
             [purnam.checks :refer :all]))
 
 (fact "aget-in-form"

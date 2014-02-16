@@ -1,8 +1,8 @@
-# purnam.core
+# purnam.common
 
-[![Build Status](https://travis-ci.org/purnam/purnam.core.png?branch=master)](https://travis-ci.org/purnam/purnam.core)
+[![Build Status](https://travis-ci.org/purnam/purnam.common.png?branch=master)](https://travis-ci.org/purnam/purnam.common)
 
-Friendly js interop for clojurescript
+Common utility functions for purnam
 
 ## Usage
 

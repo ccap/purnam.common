@@ -1,6 +1,6 @@
-(ns purnam.core.parse
+(ns purnam.common.parse
   (:require [clojure.string :as s]
-            [purnam.core.common :refer :all]))
+            [purnam.common.common :refer :all]))
 
 (defn conj-if-str [arr s]
   (if (empty? s) arr
@@ -90,7 +90,7 @@
 
 (defn parse-exp [sym]
 (let [[var & ks] (split-syms sym)]
-  (list 'purnam.core.accessors/aget-in (parse-var var)
+  (list 'purnam.common.accessors/aget-in (parse-var var)
         (vec (map parse-sub-exp ks)))))
 
 (defn parse-sub-exp [ss]

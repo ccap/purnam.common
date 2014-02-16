@@ -1,7 +1,7 @@
-(ns purnam.core.expand
-  (:require [purnam.core.common :refer :all]
-            [purnam.core.parse :refer [exp? split-syms parse-var parse-exp parse-sub-exp]]
-            [purnam.core.accessors :refer [aget-in aset-in]]))
+(ns purnam.common.expand
+  (:require [purnam.common.common :refer :all]
+            [purnam.common.parse :refer [exp? split-syms parse-var parse-exp parse-sub-exp]]
+            [purnam.common.accessors :refer [aget-in aset-in]]))
 
 (def ^:dynamic *exclusions* (atom #{}))
 
@@ -28,7 +28,7 @@
   (let [[var & ks] (split-syms sym)
         sel  (vec (butlast ks))
         fnc  (last ks)]
-    (list 'let ['obj# (list 'purnam.core.accessors/aget-in (parse-var var)
+    (list 'let ['obj# (list 'purnam.common.accessors/aget-in (parse-var var)
                             (vec (map parse-sub-exp sel)))
                 'fn#  (list 'aget 'obj# (parse-sub-exp fnc))]
           (apply list '.call 'fn# 'obj#

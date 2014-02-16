@@ -1,6 +1,6 @@
-(defproject im.chit/purnam.core "0.4.0"
-  :description "Friendly js interop for clojurescript"  
-  :url "http://www.github.com/purnam/purnam.core"
+(defproject im.chit/purnam.common "0.4.0"
+  :description "Common utility functions for purnam"  
+  :url "http://www.github.com/purnam/purnam.common"
   :license {:name "The MIT License"
             :url "http://opensource.org/licencses/MIT"}
   :dependencies [[org.clojure/clojure "1.5.1"]]
@@ -11,6 +11,6 @@
                    :plugins [[lein-cljsbuild "1.0.0"]
                              [lein-midje "3.1.3"]]}}
   :cljsbuild {:builds [{:source-paths ["src", "test/cljs"]
-                       :compiler {:output-to "test/purnam.core.js"
+                       :compiler {:output-to "test/purnam.common.js"
                                   :optimizations :whitespace
                                   :pretty-print true}}]})
