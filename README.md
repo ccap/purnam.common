@@ -1,8 +1,8 @@
-# purnam.walk
+# purnam.core
 
-[![Build Status](https://travis-ci.org/purnam/purnam.walk.png?branch=master)](https://travis-ci.org/purnam/purnam.walk)
+[![Build Status](https://travis-ci.org/purnam/purnam.core.png?branch=master)](https://travis-ci.org/purnam/purnam.core)
 
-Code walking transforms for purnam
+Friendly js interop for clojurescript
 
 ## Usage
 

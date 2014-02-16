@@ -13,7 +13,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'test/purnam.walk.js'
+      'test/purnam.core.js'
     ],
 
 

@@ -1,20 +1,16 @@
-(ns purnam.walk.expand
-  (:require [purnam.walk.common :refer :all]
-            [purnam.walk.parse :refer [exp? split-syms parse-var parse-exp parse-sub-exp]]
-            [purnam.walk.accessors :refer [aget-in aset-in]]))
+(ns purnam.core.expand
+  (:require [purnam.core.common :refer :all]
+            [purnam.core.parse :refer [exp? split-syms parse-var parse-exp parse-sub-exp]]
+            [purnam.core.accessors :refer [aget-in aset-in]]))
 
 (def ^:dynamic *exclusions* (atom #{}))
 
-(defmacro get-exclusions []
-  (let [syms (map (fn [sym] (list 'symbol (str sym))) @*exclusions*)]
-    `(list ~@syms)))
-
 (defmacro add-exclusions [& args]
-  (swap! *exclusions* apply conj args) 
+  (swap! *exclusions* into args)
   `(get-exclusions))
-  
+
 (defmacro remove-exclusions [& args]
-  (swap! *exclusions* apply disj args) 
+  (swap! *exclusions* #(apply disj % args))
   `(get-exclusions))
 
 (defn expand-sym [obj]
@@ -32,7 +28,7 @@
   (let [[var & ks] (split-syms sym)
         sel  (vec (butlast ks))
         fnc  (last ks)]
-    (list 'let ['obj# (list 'purnam.walk.accessors/aget-in (parse-var var)
+    (list 'let ['obj# (list 'purnam.core.accessors/aget-in (parse-var var)
                             (vec (map parse-sub-exp sel)))
                 'fn#  (list 'aget 'obj# (parse-sub-exp fnc))]
           (apply list '.call 'fn# 'obj#
@@ -41,7 +37,7 @@
 (defn expand
   ([form] (expand form true))
   ([form pfn]
-     (expand form pfn (apply set (get-exclusions))))
+     (expand form pfn @*exclusions*))
   ([form pfn ex]
      (cond (set? form) (set (map expand form))
 
@@ -59,5 +55,7 @@
 
                  :else
                  (apply list (map expand form)))
+
+           (get ex form) form
 
            :else (expand-sym form))))

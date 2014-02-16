@@ -1,6 +1,6 @@
-(ns purnam.walk.scope
+(ns purnam.core.scope
   (:require [clojure.string :as s]
-            [purnam.walk.common :refer :all]))
+            [purnam.core.common :refer :all]))
 
 (defn get-sym-root [sym]
   (let [syms  (s/split (name sym) #"\.")]

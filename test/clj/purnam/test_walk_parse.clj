@@ -1,7 +1,7 @@
 (ns purnam.test-walk-parse
   (:use midje.sweet)
-  (:require [purnam.walk.parse :as j]))
-  
+  (:require [purnam.core.parse :as j]))
+
 (fact "split-dotted"
   (j/split-dotted "a") => ["a"]
   (j/split-dotted "a.b") => ["a" "b"]
@@ -28,13 +28,32 @@
   (j/symbol-with-ns? 'js/console.log) => falsey
   (j/symbol-with-ns? 'js/console.log) => falsey)
 
+(fact "symbol-contains-dot?"
+  (j/symbol-contains-dot? 'add) => falsey
+  (j/symbol-contains-dot? 'clojure.core/add) => true)
+
+(def test.sym nil)
+(def .? nil)
+(def .a nil)
+
 (fact "js-exp?"
+  (j/exp? 'test.sym) => false
+  (j/exp? '.?) => false
+
+  (j/exp? 'purnam.test-walk-parse/test.sym) => false
+  (j/exp? 'purnam.test-walk-parse/.?) => false
+  (j/exp? 'purnam.test-walk-parse/.a) => false
+  (j/exp? 'purnam.test-walk-parse/.b) => false
+  (j/exp? 'purnam.test-walk-parse/test.non-sym) => true
+  (j/exp? 'purnam.test-walk-parse/.a.b.c) => true
+
   (j/exp? 'add) => false
   (j/exp? 'js/console) => false
   (j/exp? 'java.util.Set.) => false
   (j/exp? 'java.math.BigInteger/probablePrime) => false
   (j/exp? 'clojure.core/add) => false
   (j/exp? 'clojure.core) => true
+
   (j/exp? 'x.y/a.|b|.c) => true
   (j/exp? 'x.|y|.a) => true)
 
@@ -54,3 +73,14 @@
   (j/split-syms 'a.|b|.c/b.c) => (throws Exception)
   (j/split-syms 'ns/a.|ns/b.c|) => ["ns/a" "|ns/b.c|"]
   (j/split-syms 'ns/b.c) => ["ns/b" "c"])
+
+
+(fact "parse-exp"
+  (j/parse-exp 'a.b)
+  => '(purnam.core.accessors/aget-in a ["b"])
+
+  (j/parse-exp 'a.this)
+  => '(purnam.core.accessors/aget-in a ["this"])
+
+  (j/parse-exp 'this.a.b)
+  => '(purnam.core.accessors/aget-in (js* "this") ["a" "b"]))

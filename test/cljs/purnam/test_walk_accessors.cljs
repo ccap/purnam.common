@@ -1,6 +1,6 @@
 (ns purnam.test-walk-accessors
   (:require [gyr.functions])
-  (:use-macros [purnam.walk.accessors :only [aset-in aget-in]]
+  (:use-macros [purnam.core.accessors :only [aset-in aget-in]]
                [purnam.jasmine :only [deftest is init]]))
   
 (init)

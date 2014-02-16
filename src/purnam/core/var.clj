@@ -1,4 +1,7 @@
-
+(ns purnam.core.var
+  (:require [purnam.core.common :refer :all]
+            [purnam.core.scope :refer [change-roots-map]]))
+            
 (declare make-var)
 
 (defn make-js-object-resolve [sym]

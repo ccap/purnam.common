@@ -1,11 +1,11 @@
-(ns purnam.walk.parse
+(ns purnam.core.parse
   (:require [clojure.string :as s]
-            [purnam.walk.common :refer :all]))
+            [purnam.core.common :refer :all]))
 
 (defn conj-if-str [arr s]
   (if (empty? s) arr
       (conj arr s)))
-      
+
 (defn reconstruct-dotted [output current ss]
   (str (s/join "." output) "." current (apply str ss)))\
 
@@ -50,10 +50,10 @@
             \|  (recur output (str current ".|") (nnext ss) (inc level))
             (recur output (str current "." nch) (nnext ss) level))
        (recur output (str current ch) (next ss) level))))
-       
+
 
 (defn symbol-with-ns? [sym]
- (if-let [[_ nstr sstr rstr] (re-find #"([\.\w\_\-]+)/([\w\_\-]+\.?(.*))" (str sym))]
+ (if-let [[_ nstr sstr rstr] (re-find #"([\.\w\_\-]+)/\.?([\w\_\-]+\.?(.*))" (str sym))]
    (cond (empty? rstr) true
          (if-let [ns (suppress (the-ns (symbol nstr)))]
            (contains? (ns-map ns) (symbol sstr))) true)))
@@ -62,18 +62,18 @@
  (if (re-find #"[^\.]+\.[^\.]" (str sym)) true))
 
 (defn exp? [sym]
- (cond (not (symbol? sym)) false
-       (contains? (ns-map *ns*) sym) false
-       (.startsWith (str sym) ".") false
-       (.endsWith (str sym) ".") false
-       (symbol-with-ns? sym) false
-       (or (= 'f.n sym) (= 'do.n sym)) false
-       (symbol-contains-dot? sym) true
-       :else false))
+  (cond (not (symbol? sym)) false
+        (suppress (resolve sym)) false
+        (contains? (ns-map *ns*) sym) false
+        (.startsWith (str sym) ".") false
+        (.endsWith (str sym) ".") false
+        (symbol-with-ns? sym) false
+        (symbol-contains-dot? sym) true
+        :else false))
 
 (defn split-first [sym]
  (let [ss  (str sym)
-       res (or (re-find #"(^[^\|/]+/[^\.\|/]+)(\..*)" ss)
+       res (or (re-find #"(^[^\|/]+/\.?[^\.\|/]+)(\..*)" ss)
                (re-find #"(^[^\|\./]+)(\..*)" (str sym)))]
    (next res)))
 
@@ -90,13 +90,13 @@
 
 (defn parse-exp [sym]
 (let [[var & ks] (split-syms sym)]
-  (list 'purnam.walk.accessors/aget-in (parse-var var)
+  (list 'purnam.core.accessors/aget-in (parse-var var)
         (vec (map parse-sub-exp ks)))))
 
 (defn parse-sub-exp [ss]
  (if-let [res (re-find #"^\|(.*)\|$" ss)]
    (let [sym (symbol (second res))]
-     (if (exp? sym)
+     (if (symbol-contains-dot? sym)
        (parse-exp sym)
        sym))
    ss))

@@ -10,4 +10,6 @@ pom.xml.asc
 .lein-failures
 .lein-plugins
 .lein-repl-history
-purnam.walk.js
+purnam.core.js
+.#*
+.DS_Store
