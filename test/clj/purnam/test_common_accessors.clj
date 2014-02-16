@@ -2,7 +2,7 @@
   (:use midje.sweet)
   (:require [purnam.common.accessors :as j]
             [purnam.checks :refer :all]))
-
+            
 (fact "aget-in-form"
   (j/aget-in-form 'dog []) => 'dog
   (j/aget-in-form 'dog ["leg"])

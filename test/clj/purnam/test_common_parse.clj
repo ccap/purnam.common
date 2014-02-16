@@ -40,12 +40,12 @@
   (j/exp? 'test.sym) => false
   (j/exp? '.?) => false
 
-  (j/exp? 'purnam.test-walk-parse/test.sym) => false
-  (j/exp? 'purnam.test-walk-parse/.?) => false
-  (j/exp? 'purnam.test-walk-parse/.a) => false
-  (j/exp? 'purnam.test-walk-parse/.b) => false
-  (j/exp? 'purnam.test-walk-parse/test.non-sym) => true
-  (j/exp? 'purnam.test-walk-parse/.a.b.c) => true
+  (j/exp? 'purnam.test-common-parse/test.sym) => false
+  (j/exp? 'purnam.test-common-parse/.?) => false
+  (j/exp? 'purnam.test-common-parse/.a) => false
+  (j/exp? 'purnam.test-common-parse/.b) => false
+  (j/exp? 'purnam.test-common-parse/test.non-sym) => true
+  (j/exp? 'purnam.test-common-parse/.a.b.c) => true
 
   (j/exp? 'add) => false
   (j/exp? 'js/console) => false
@@ -77,10 +77,10 @@
 
 (fact "parse-exp"
   (j/parse-exp 'a.b)
-  => '(purnam.common.accessors/aget-in a ["b"])
+  => '(purnam.core/aget-in a ["b"])
 
   (j/parse-exp 'a.this)
-  => '(purnam.common.accessors/aget-in a ["this"])
+  => '(purnam.core/aget-in a ["this"])
 
   (j/parse-exp 'this.a.b)
-  => '(purnam.common.accessors/aget-in (js* "this") ["a" "b"]))
+  => '(purnam.core/aget-in (js* "this") ["a" "b"]))

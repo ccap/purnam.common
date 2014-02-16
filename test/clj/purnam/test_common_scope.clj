@@ -1,4 +1,4 @@
-(ns purnam.test-walk-scope
+(ns purnam.test-common-scope
   (:use midje.sweet)
 (:require [purnam.common.scope :as j]))
 

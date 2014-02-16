@@ -1,4 +1,4 @@
-(ns purnam.jasmine)
+(ns purnam.test)
 
 (defmacro init []
   '(js/beforeEach
@@ -22,14 +22,14 @@
                               "\n  Expected: " notText texpected
                               "\n  Actual: " actualText)))
                  (cond (= (js/goog.typeOf expected) "array")
-                       (gyr.functions/js-equals expected actual)
+                       (purnam.test.helpers/js-equals expected actual)
 
                        (fn? expected)
                        (expected actual)
 
                        :else
                        (or (= expected actual)
-                           (gyr.functions/js-equals expected actual))))))
+                           (purnam.test.helpers/js-equals expected actual))))))
             o)))))
 
 (defmacro statement [v expected]
@@ -40,7 +40,7 @@
      (list 'fn []
        (list 'js/it ""
          `(fn [] 
-             (purnam.jasmine/statement ~v ~expected))))))                          
+             (statement ~v ~expected))))))                          
                                    
 (defmacro deftest [info & args]
   `(do

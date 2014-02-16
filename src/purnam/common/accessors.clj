@@ -7,9 +7,6 @@
         (list 'if-let [bs (list 'aget var (first arr))]
               (aget-in-form bs (next arr))))))
 
-(defmacro aget-in [var arr]
-  (aget-in-form var arr))
-
 (defn nested-val-form [[k & ks] val]
   (if (nil? k) val
       (let [bs (gensym)]
@@ -33,7 +30,3 @@
 (defn aset-in-form [var ks val]
   (list 'do (aset-in-form* var ks val)
         var))
-
-(defmacro aset-in [var arr val]
-  (list 'let ['o# var]
-    (aset-in-form 'o# arr val)))
