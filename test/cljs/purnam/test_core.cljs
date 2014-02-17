@@ -1,5 +1,5 @@
 (ns purnam.test-core
-  (:require [purnam.test.helpers])
+  (:require [purnam.test.common])
   (:use-macros [purnam.core :only [aset-in aget-in obj arr]]
                [purnam.test :only [deftest is init]]))
                

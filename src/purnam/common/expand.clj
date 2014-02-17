@@ -2,16 +2,6 @@
   (:require [purnam.common :refer :all]
             [purnam.common.parse :refer [exp? split-syms parse-var parse-exp parse-sub-exp]]))
 
-(def ^:dynamic *exclusions* (atom #{}))
-
-(defmacro add-exclusions [& args]
-  (swap! *exclusions* into args)
-  `(get-exclusions))
-
-(defmacro remove-exclusions [& args]
-  (swap! *exclusions* #(apply disj % args))
-  `(get-exclusions))
-
 (defn expand-sym [obj]
   (cond (exp? obj)
         (parse-exp obj)

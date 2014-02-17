@@ -1,9 +1,6 @@
 (ns purnam.common.raw
   (:require [purnam.common :refer :all]
             [purnam.common.scope :refer [change-roots-map]]))
-  
-(def ^:dynamic *binding-forms* 
-  (atom '#{let loop for doseq if-let when-let}))
 
 (declare walk-raw)
 
@@ -21,8 +18,11 @@
         (apply list 'array (map walk-raw form))
 
         (hash-map? form)
-        (apply list 'purnam.common/obj
+        (apply list 'purnam.core/obj
                (mapcat (fn [[k x]] [k (walk-raw x)]) form))
+
+        (set? form)
+        (apply list `set (map walk-raw form))
 
         (seq? form)
         (cond (get @*binding-forms* (first form))

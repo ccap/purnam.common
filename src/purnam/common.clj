@@ -1,5 +1,26 @@
 (ns purnam.common)
 
+(def ^:dynamic *exclusions* (atom #{}))
+
+(def ^:dynamic *binding-forms* 
+  (atom '#{let loop for doseq if-let when-let}))
+
+(defmacro add-exclusions [& args]
+  (swap! *exclusions* into args)
+  `(deref *exclusions*))
+
+(defmacro remove-exclusions [& args]
+  (swap! *exclusions* #(apply disj % args))
+  `(deref *exclusions*))
+
+(defmacro add-binding-forms [& args]
+  (swap! *binding-forms* into args)
+  `(deref *binding-forms*))
+
+(defmacro remove-binding-forms [& args]
+  (swap! *binding-forms* #(apply disj % args))
+  `(deref *binding-forms*))
+  
 (defn hash-set? [obj]
   (instance? clojure.lang.APersistentSet obj))
 

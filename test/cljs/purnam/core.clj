@@ -6,22 +6,6 @@
             [purnam.common.scope :refer [change-roots-map]]
             [purnam.common.var :refer [make-var make-js-array]]
             [purnam.common.raw :refer [walk-raw]]))
-            
-(defmacro add-exclusions [& args]
-  (swap! purnam.common.expand/*exclusions* into args)
-  `(deref purnam.common.expand/*exclusions*))
-
-(defmacro remove-exclusions [& args]
-  (swap! purnam.common.expand/*exclusions* #(apply disj % args))
-  `(deref purnam.common.expand/*exclusions*))
-
-(defmacro add-binding-forms [& args]
-  (swap! purnam.common.raw/*binding-forms* into args)
-  `(deref purnam.common.raw/*binding-forms*))
-
-(defmacro remove-binding-forms [& args]
-  (swap! purnam.common.raw/*binding-forms* #(apply disj % args))
-  `(deref purnam.common.raw/*binding-forms*))
 
 (defmacro aget-in [var arr]
   (aget-in-form var (map name arr)))

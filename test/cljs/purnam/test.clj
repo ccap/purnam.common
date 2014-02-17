@@ -22,14 +22,14 @@
                               "\n  Expected: " notText texpected
                               "\n  Actual: " actualText)))
                  (cond (= (js/goog.typeOf expected) "array")
-                       (purnam.test.helpers/js-equals expected actual)
+                       (purnam.test.common/js-equals expected actual)
 
                        (fn? expected)
                        (expected actual)
 
                        :else
                        (or (= expected actual)
-                           (purnam.test.helpers/js-equals expected actual))))))
+                           (purnam.test.common/js-equals expected actual))))))
             o)))))
 
 (defmacro statement [v expected]

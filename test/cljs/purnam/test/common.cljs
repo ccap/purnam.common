@@ -1,4 +1,4 @@
-(ns purnam.test.helpers
+(ns purnam.test.common
  (:require [goog.object :as gobj]
            [goog.array :as garr]))
  
