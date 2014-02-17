@@ -1,4 +1,4 @@
-(ns purnam.common.raw
+(ns purnam.core.raw
   (:require [purnam.common :refer :all]
             [purnam.common.scope :refer [change-roots-map]]))
 

@@ -49,9 +49,3 @@
                (concat [f info] rst)
                form)) 
            args)))
-
-#_(defmacro is [v expected]
-  (list '.toSatisfy (list 'js/expect v) expected (str v) (str expected)))
-
-#_(defmacro is-not [v expected]
-  (list '.toSatisfy (list '.-not (list 'js/expect v)) expected (str v) (str expected)))

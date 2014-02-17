@@ -4,8 +4,8 @@
             [purnam.common.parse :refer [split-syms parse-var parse-sub-exp]]
             [purnam.common.expand :refer [expand expand-fn expand-sym]]
             [purnam.common.scope :refer [change-roots-map]]
-            [purnam.common.var :refer [make-var make-js-array]]
-            [purnam.common.raw :refer [walk-raw]]))
+            [purnam.core.var :refer [make-var make-js-array]]
+            [purnam.core.raw :refer [walk-raw]]))
 
 (defmacro aget-in [var arr]
   (aget-in-form var (map name arr)))
