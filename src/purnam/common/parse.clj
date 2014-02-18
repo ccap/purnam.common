@@ -90,7 +90,7 @@
 
 (defn parse-exp [sym]
 (let [[var & ks] (split-syms sym)]
-  (list 'purnam.core/aget-in (parse-var var)
+  (list 'purnam.common/aget-in (parse-var var)
         (vec (map parse-sub-exp ks)))))
 
 (defn parse-sub-exp [ss]

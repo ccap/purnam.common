@@ -1,6 +1,7 @@
 (ns purnam.test-core
   (:require [purnam.test.common])
-  (:use-macros [purnam.core :only [aset-in aget-in obj arr]]
+  (:use-macros [purnam.common :only [aset-in aget-in]]
+               [purnam.core :only [obj arr]]
                [purnam.test :only [deftest is init]]))
                
 (deftest "obj creates a js object"
