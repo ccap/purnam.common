@@ -9,6 +9,11 @@
   => (matches
       '(if-let [%1 (aget dog "leg")]
          %1))
+  (j/aget-in-form 'dog ['leg])
+  => (matches
+      '(if-let [%1 (aget dog leg)]
+         %1))
+         
   (j/aget-in-form 'dog ["leg" "count"])
   => (matches
       '(if-let [%1 (aget dog "leg")]

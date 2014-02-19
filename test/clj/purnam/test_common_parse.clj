@@ -33,15 +33,15 @@
   (j/symbol-contains-dot? 'clojure.core/add) => true)
 
 (def test.sym nil)
-(def .? nil)
+(def .?- nil)
 (def .a nil)
 
 (fact "js-exp?"
   (j/exp? 'test.sym) => false
-  (j/exp? '.?) => false
+  (j/exp? '.?-) => false
 
   (j/exp? 'purnam.test-common-parse/test.sym) => false
-  (j/exp? 'purnam.test-common-parse/.?) => false
+  (j/exp? 'purnam.test-common-parse/.?-) => false
   (j/exp? 'purnam.test-common-parse/.a) => false
   (j/exp? 'purnam.test-common-parse/.b) => false
   (j/exp? 'purnam.test-common-parse/test.non-sym) => true

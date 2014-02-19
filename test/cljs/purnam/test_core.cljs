@@ -11,7 +11,11 @@
 (deftest "arr creates a js array"
   (is (arr {:a 1} {:b [2 3 4]}) (js* "[{a:1}, {b:[2,3,4]}]")))
   
+(def ka "a")
+(def kb "b")  
+
 (deftest "aget-in with obj"
   (is (aget-in (obj :a {:b 1}) ["a" "b"]) 1)
+  (is (aget-in (obj :a {:b 1}) [ka kb]) 1)
   (is (aget-in (obj :a {:b 1}) [:a :b]) 1)
   (is (aget-in (obj :a {:b 1}) [:a]) (obj :b 1)))
