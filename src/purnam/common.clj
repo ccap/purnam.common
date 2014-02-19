@@ -1,4 +1,5 @@
-(ns purnam.common)
+(ns purnam.common
+  (:require [purnam.common.accessors :refer [aget-in-form aset-in-form]]))
 
 (def ^:dynamic *exclusions* (atom #{}))
 
@@ -20,6 +21,13 @@
 (defmacro remove-binding-forms [& args]
   (swap! *binding-forms* #(apply disj % args))
   `(deref *binding-forms*))
+
+(defmacro aget-in [var arr]
+  (aget-in-form var (map name arr)))
+
+(defmacro aset-in [var arr val]
+  (list 'let ['o# var]
+    (aset-in-form 'o# (map name arr) val)))
   
 (defn hash-set? [obj]
   (instance? clojure.lang.APersistentSet obj))

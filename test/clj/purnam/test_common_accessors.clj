@@ -5,6 +5,7 @@
             
 (fact "aget-in-form"
   (j/aget-in-form 'dog []) => 'dog
+  
   (j/aget-in-form 'dog ["leg"])
   => (matches
       '(if-let [%1 (aget dog "leg")]

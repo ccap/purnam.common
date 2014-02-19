@@ -20,16 +20,16 @@
   => 'j/.a
 
   (j/expand-sym 'j/.a.b)
-  => '(purnam.core/aget-in j/.a ["b"])
+  => '(purnam.common/aget-in j/.a ["b"])
 
   (j/expand-sym 'a.b)
-  => '(purnam.core/aget-in a ["b"])
+  => '(purnam.common/aget-in a ["b"])
 
   (j/expand-sym 'j/a.b)
-  => '(purnam.core/aget-in j/a ["b"])
+  => '(purnam.common/aget-in j/a ["b"])
 
   (j/expand-sym 'a.b.c)
-  => '(purnam.core/aget-in a ["b" "c"])
+  => '(purnam.common/aget-in a ["b" "c"])
 
   (j/expand-sym 'a.b.c/d)
   => 'a.b.c/d)
@@ -44,7 +44,7 @@
   => '(purnam.test-common-expand/test.sym 1)
 
   (j/expand '(a.b 1))
-  => '(let [obj# (purnam.core/aget-in a [])
+  => '(let [obj# (purnam.common/aget-in a [])
             fn#  (aget obj# "b")]
         (.call fn# obj# 1)))
 
@@ -53,7 +53,7 @@
   => '(go.n 1)
 
   (j/expand '(do.n 1))
-  => '(let [obj# (purnam.core/aget-in do [])
+  => '(let [obj# (purnam.common/aget-in do [])
             fn# (aget obj# "n")]
         (.call fn# obj# 1))
 

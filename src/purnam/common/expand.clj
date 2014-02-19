@@ -17,7 +17,7 @@
   (let [[var & ks] (split-syms sym)
         sel  (vec (butlast ks))
         fnc  (last ks)]
-    (list 'let ['obj# (list 'purnam.core/aget-in (parse-var var)
+    (list 'let ['obj# (list 'purnam.common/aget-in (parse-var var)
                             (vec (map parse-sub-exp sel)))
                 'fn#  (list 'aget 'obj# (parse-sub-exp fnc))]
           (apply list '.call 'fn# 'obj#

@@ -77,10 +77,15 @@
 
 (fact "parse-exp"
   (j/parse-exp 'a.b)
-  => '(purnam.core/aget-in a ["b"])
+  => '(purnam.common/aget-in a ["b"])
 
   (j/parse-exp 'a.this)
-  => '(purnam.core/aget-in a ["this"])
+  => '(purnam.common/aget-in a ["this"])
 
   (j/parse-exp 'this.a.b)
-  => '(purnam.core/aget-in (js* "this") ["a" "b"]))
+  => '(purnam.common/aget-in (js* "this") ["a" "b"])
+  
+  (j/parse-exp 'a.|b|)
+  => '(purnam.common/aget-in a [b])
+  
+  )

@@ -1,18 +1,10 @@
 (ns purnam.core
   (:require [purnam.common :refer :all]
-            [purnam.common.accessors :refer [aget-in-form aset-in-form]]
             [purnam.common.parse :refer [split-syms parse-var parse-sub-exp]]
             [purnam.common.expand :refer [expand expand-fn expand-sym]]
             [purnam.common.scope :refer [change-roots-map]]
             [purnam.core.var :refer [make-var make-js-array]]
             [purnam.core.raw :refer [walk-raw]]))
-
-(defmacro aget-in [var arr]
-  (aget-in-form var (map name arr)))
-
-(defmacro aset-in [var arr val]
-  (list 'let ['o# var]
-    (aset-in-form 'o# (map name arr) val)))
     
 (defmacro ? [sym]
   (expand-sym sym))
@@ -22,7 +14,7 @@
 
 (defmacro ! [sym & [val]]
   (let [[var & ks] (split-syms sym)]
-    (list 'purnam.common.accessors/aset-in (parse-var var)
+    (list 'purnam.common/aset-in (parse-var var)
           (vec (map parse-sub-exp ks))
           (expand val))))
 
