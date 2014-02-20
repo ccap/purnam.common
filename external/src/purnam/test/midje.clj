@@ -2,8 +2,6 @@
   (:require [purnam.common :refer :all]
             [purnam.test.jasmine :refer [describe-fn it-fn is-fn]]))
 
-(add-exclude-expansion describe is is-not purnam.test/describe purnam.test/is purnam.test/is-not)
-  
 (defn find-arrow-positions
   ([forms] (find-arrow-positions forms [] 0))
   ([[f & more] idxs count]
@@ -36,7 +34,7 @@
   (and (vector? ele)
        (vector? (first ele))
        (instance? clojure.lang.APersistentMap (ffirst ele))))
-       
+
 (defn fact-fn [opts? body]
   (let [[opts? body]
         (cond (= '=> (first body))

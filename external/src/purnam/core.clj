@@ -5,7 +5,10 @@
             [purnam.common.scope :refer [change-roots-map]]
             [purnam.core.var :refer [make-var make-js-array]]
             [purnam.core.raw :refer [walk-raw]]))
-            
+
+(add-symbols purnam.common/*exclude-expansion*
+             '[purnam.core ? ?> ! !> f.n def.n do.n obj arr def* def*n f*n do*n])
+
 (defmacro ? [sym]
   (expand-sym sym))
 

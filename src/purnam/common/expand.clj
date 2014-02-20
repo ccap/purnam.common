@@ -37,7 +37,8 @@
            (vector? form) (mapv expand form)
 
            (seq? form)
-           (cond (get ex (first form)) form
+           (cond (get ex (resolved-sym (first form)))
+                 form
 
                  (and pfn (exp? (first form)))
                  (expand-fn (first form) (next form))
@@ -45,6 +46,6 @@
                  :else
                  (apply list (map expand form)))
 
-           (get ex form) form
+           (get ex (resolved-sym form)) form
 
            :else (expand-sym form))))

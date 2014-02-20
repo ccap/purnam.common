@@ -39,7 +39,7 @@
 
 (defn has-first-element [obj f]
   (and (or (list? obj) (lazy-seq? obj))
-       (f (first obj))))
+       (f (resolved-sym (first obj)))))
 
 (defn change-roots
   ([form old new] (change-roots form old new #{}))
@@ -51,7 +51,7 @@
       #(change-sym-root % new))))
 
 (defn change-roots-map
-  ([form m] (change-roots-map form m #{}))
+  ([form m] (change-roots-map form m @purnam.common/*exclude-scoping*))
   ([form m exclude]
      (walk-and-transform
       form

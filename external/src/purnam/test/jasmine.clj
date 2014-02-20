@@ -3,8 +3,6 @@
             [purnam.common.expand :refer [expand]]
             [purnam.common.scope :refer [change-roots-map]]))
 
-(add-exclude-expansion describe is is-not purnam.test/describe purnam.test/is purnam.test/is-not)
-
 (def l list)
 
 (def describe-default-options
@@ -12,7 +10,7 @@
    :spec 'spec
    :vars []
    :globals []})
-   
+
 (defn describe-bind-vars
   [spec vars]
   (let [bindings (partition 2 vars)]
@@ -52,14 +50,14 @@
 (defn it-fn [desc body]
   (list 'js/it desc
         `(fn [] ~@body)))
-        
+
 (defn is-fn [actual expected]
   (list '.toSatisfy (list 'js/expect (expand actual)) (expand expected) (str actual) (str expected)))
 
 (defn is-not-fn [actual expected]
-  (list '.toSatisfy 
-     (list '.-not 
-       (list 'js/expect (expand actual))) 
-             (expand expected) 
-             (str actual) 
+  (list '.toSatisfy
+     (list '.-not
+       (list 'js/expect (expand actual)))
+             (expand expected)
+             (str actual)
              (str expected)))

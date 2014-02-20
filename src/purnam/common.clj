@@ -1,28 +1,33 @@
 (ns purnam.common
   (:require [purnam.common.accessors :refer [aget-in-form aset-in-form]]))
 
+;;----------------------------------------------------------
+
 (def ^:dynamic *exclude-expansion* (atom #{}))
 
 (def ^:dynamic *exclude-scoping* (atom #{}))
 
-(def ^:dynamic *binding-forms* 
-  (atom '#{let loop for doseq if-let when-let}))
+(def ^:dynamic *binding-forms* (atom '#{}))
 
-(defmacro add-exclude-expansion [& args]
-  (swap! *exclude-expansion* into args)
-  `(deref *exclude-expansion*))
+(defn create-symbols [args]
+  (mapcat (fn [arg]
+            (if (vector? arg)
+              (map #(symbol (str (first arg) "/" %))
+                   (rest arg))
+              (list arg)))
+          args))
 
-(defmacro remove-exclude-expansion [& args]
-  (swap! *exclude-expansion* #(apply disj % args))
-  `(deref *exclude-expansion*))
+(defn add-symbols [atm & args]
+  (apply swap! atm conj (create-symbols args)))
 
-(defmacro add-binding-forms [& args]
-  (swap! *binding-forms* into args)
-  `(deref *binding-forms*))
+(defn remove-symbols [atm & args]
+  (apply swap! atm disj (create-symbols args)))
 
-(defmacro remove-binding-forms [& args]
-  (swap! *binding-forms* #(apply disj % args))
-  `(deref *binding-forms*))
+(add-symbols *binding-forms* '[clojure.core let loop for doseq if-let when-let])
+
+
+;;----------------------------------------------------------
+
 
 (defmacro aget-in [var arr]
   (aget-in-form var (map #(if (symbol? %) % (name %)) arr)))
@@ -30,7 +35,7 @@
 (defmacro aset-in [var arr val]
   (list 'let ['o# var]
     (aset-in-form 'o# (map #(if (symbol? %) % (name %)) arr) val)))
-  
+
 (defn hash-set? [obj]
   (instance? clojure.lang.APersistentSet obj))
 
@@ -59,3 +64,13 @@
 (defmacro case-let [[var bound] & body]
   `(let [~var ~bound]
      (case ~var ~@body)))
+
+(defn var-sym [var]
+  (let [mta (meta var)
+        ns (.getName (:ns mta))
+        name (:name mta)]
+    (symbol (str ns "/" name))))
+
+(defn resolved-sym [sym]
+  (if-let [var (suppress (resolve sym))]
+    (var-sym var)))
