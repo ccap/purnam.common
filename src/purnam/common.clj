@@ -23,11 +23,11 @@
   `(deref *binding-forms*))
 
 (defmacro aget-in [var arr]
-  (aget-in-form var (map name arr)))
+  (aget-in-form var (map #(if (symbol? %) % (name %)) arr)))
 
 (defmacro aset-in [var arr val]
   (list 'let ['o# var]
-    (aset-in-form 'o# (map name arr) val)))
+    (aset-in-form 'o# (map #(if (symbol? %) % (name %)) arr) val)))
   
 (defn hash-set? [obj]
   (instance? clojure.lang.APersistentSet obj))
