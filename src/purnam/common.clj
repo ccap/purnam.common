@@ -1,18 +1,20 @@
 (ns purnam.common
   (:require [purnam.common.accessors :refer [aget-in-form aset-in-form]]))
 
-(def ^:dynamic *exclusions* (atom #{}))
+(def ^:dynamic *exclude-expansion* (atom #{}))
+
+(def ^:dynamic *exclude-scoping* (atom #{}))
 
 (def ^:dynamic *binding-forms* 
   (atom '#{let loop for doseq if-let when-let}))
 
-(defmacro add-exclusions [& args]
-  (swap! *exclusions* into args)
-  `(deref *exclusions*))
+(defmacro add-exclude-expansion [& args]
+  (swap! *exclude-expansion* into args)
+  `(deref *exclude-expansion*))
 
-(defmacro remove-exclusions [& args]
-  (swap! *exclusions* #(apply disj % args))
-  `(deref *exclusions*))
+(defmacro remove-exclude-expansion [& args]
+  (swap! *exclude-expansion* #(apply disj % args))
+  `(deref *exclude-expansion*))
 
 (defmacro add-binding-forms [& args]
   (swap! *binding-forms* into args)

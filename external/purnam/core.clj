@@ -5,7 +5,7 @@
             [purnam.common.scope :refer [change-roots-map]]
             [purnam.core.var :refer [make-var make-js-array]]
             [purnam.core.raw :refer [walk-raw]]))
-    
+            
 (defmacro ? [sym]
   (expand-sym sym))
 
@@ -14,7 +14,7 @@
 
 (defmacro ! [sym & [val]]
   (let [[var & ks] (split-syms sym)]
-    (list 'purnam.common/aset-in (parse-var var)
+    (list 'purnam.common.accessors/aset-in (parse-var var)
           (vec (map parse-sub-exp ks))
           (expand val))))
 

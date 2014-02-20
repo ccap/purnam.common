@@ -1,7 +1,10 @@
-(ns purnam.test)
+(ns purnam.test
+  (:require [purnam.test.common :refer [js-equals]]))
 
-(defmacro init []
-  '(js/beforeEach
+(if-not (.-jasmine js/window)
+    (throw (ex-info "No Jasmine Framework Library Installed. Tests Cannot Proceed" {})))
+    
+(js/beforeEach
      (fn []
        (.addMatchers (js* "this")
          (let [o (js-obj)]
@@ -12,7 +15,7 @@
                      actualText (if (= actualText "[object Object]")
                                    (let [ks (js/goog.object.getKeys actual)
                                          vs (js/goog.object.getValues actual)]
-                                     (into {} (map (fn [x y] [x y]) 
+                                     (into {} (map (fn [x y] [x y])
                                                  ks vs)))
                                    actualText)
                      notText (if (.-isNot (js* "this")) "Not " "")]
@@ -22,30 +25,13 @@
                               "\n  Expected: " notText texpected
                               "\n  Actual: " actualText)))
                  (cond (= (js/goog.typeOf expected) "array")
-                       (purnam.test.common/js-equals expected actual)
+                       (js-equals expected actual)
 
                        (fn? expected)
                        (expected actual)
 
                        :else
                        (or (= expected actual)
-                           (purnam.test.common/js-equals expected actual))))))
-            o)))))
+                           (js-equals expected actual))))))
+            o))))
 
-(defmacro statement [v expected]
-  (list '.toSatisfy (list 'js/expect v) expected (str v) (str expected)))
-
-(defmacro is [info v expected]
-  (list 'js/describe info 
-     (list 'fn []
-       (list 'js/it ""
-         `(fn [] 
-             (statement ~v ~expected))))))                          
-                                   
-(defmacro deftest [info & args]
-  `(do
-    ~@(map (fn [[f & rst :as form]] 
-             (if (= f 'is)
-               (concat [f info] rst)
-               form)) 
-           args)))

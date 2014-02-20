@@ -26,7 +26,7 @@
 (defn expand
   ([form] (expand form true))
   ([form pfn]
-     (expand form pfn @*exclusions*))
+     (expand form pfn @*exclude-expansion*))
   ([form pfn ex]
      (cond (set? form) (set (map expand form))
 

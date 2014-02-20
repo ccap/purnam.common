@@ -4,7 +4,7 @@
             [purnam.common :refer :all]
             [purnam.checks :refer :all]))
 
-(swap! purnam.common/*exclusions* conj 'go.n)
+(swap! purnam.common/*exclude-expansion* conj 'go.n)
 
 (fact "expand-sym"
   (j/expand-sym 'this)

@@ -1,8 +1,8 @@
 (ns purnam.test-core
-  (:require [purnam.test.common])
+  (:require [purnam.test])
   (:use-macros [purnam.common :only [aset-in aget-in]]
                [purnam.core :only [obj arr]]
-               [purnam.test :only [deftest is init]]))
+               [purnam.test.clojure :only [deftest is init]]))
                
 (deftest "obj creates a js object"
   (is (obj :a 1 :b 2) (js* "{a:1,b:2}"))

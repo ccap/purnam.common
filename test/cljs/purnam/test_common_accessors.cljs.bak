@@ -1,7 +1,7 @@
 (ns purnam.test-common-accessors
-  (:require [purnam.test.common])
+  (:require [purnam.test])
   (:use-macros [purnam.common :only [aset-in aget-in]]
-               [purnam.test :only [deftest is init]]))
+               [purnam.test.common :only [deftest is]]))
   
 (init)
 
