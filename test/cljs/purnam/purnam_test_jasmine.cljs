@@ -1,4 +1,4 @@
-(ns midje-doc.api.purnam-test
+(ns midje-doc.api.purnam-test-jasmine
   (:use-macros [purnam.test :only [describe is it is-not fact facts]]))
 
 
@@ -26,8 +26,9 @@
                     [7, 8, 9]]")]}
 
    (it "dot notation for native objects"
-       (is 1 o.a)
-       (is 6 (+ o.a o.b o.c)))
+     (is o.a 1)
+     (is o.|ka| 1)
+     (is 6 (+ o.a o.b o.c)))
 
    (it "support for both native and cljs comparisons"
        (is [1 2 3 4] [1 2 3 4]))

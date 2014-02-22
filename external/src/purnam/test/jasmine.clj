@@ -41,9 +41,9 @@
        (if (and (list? form)
                 (or (= 'is (first form))
                     (= 'purnam.test/is (first form)))
-                (= 3 (count form)))
+                (not= 5 (count form)))
         (let [[actual expected] (rest form)]
-           (list 'purnam.test/is actual expected (str (str actual)) (str expected)))
+           (list 'purnam.test/is  actual expected (str actual) (str expected)))
         form))
     body))
 
@@ -53,15 +53,14 @@
           [(merge describe-default-options options) body]
           [describe-default-options (cons options body)])
         {:keys [doc spec globals vars]} options]
-    (binding [*current-roots* (describe-roots-map spec vars)]
-      (expand
-       (concat (l 'let (apply vector spec '(js-obj) globals))
-               (describe-bind-vars spec vars)
-               (l (l 'js/describe doc
-                     `(fn [] ~@(change-roots-map
-                                 (describe-expand-is body)
-                               *current-roots*)
-                        nil))))))))
+    (expand
+     (concat (l 'let (apply vector spec '(js-obj) globals))
+             (describe-bind-vars spec vars)
+             (l (l 'js/describe doc
+                   `(fn [] ~@(change-roots-map
+                               (describe-expand-is body)
+                             (describe-roots-map spec vars))
+                      nil)))))))
 
 (defn it-preprocess [desc body]
   (if (string? desc)

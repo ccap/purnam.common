@@ -34,6 +34,7 @@
   (+ o.|ka| o.|kb|) => 3
   
   "vars are allowed to be rebound"              
+  y.2.2 => 9
   (- y.2.2 y.0.0) => 8)
   
 [[:section {:title "facts"}]]
