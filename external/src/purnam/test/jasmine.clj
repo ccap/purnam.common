@@ -2,12 +2,6 @@
   (:require [purnam.common :refer :all]
             [purnam.common.expand :refer [expand]]
             [purnam.common.scope :refer [change-roots-map]]))
-
-(add-symbols purnam.common/*exclude-expansion*
-           '[purnam.test describe])
-
-(add-symbols purnam.common/*exclude-scoping*
-            '[purnam.test describe])
             
 (def ^:dynamic *current-roots* nil)
 
@@ -42,8 +36,10 @@
                 (or (= 'is (first form))
                     (= 'purnam.test/is (first form)))
                 (not= 5 (count form)))
-        (let [[actual expected] (rest form)]
-           (list 'purnam.test/is  actual expected (str actual) (str expected)))
+        (let [[actual expected] (rest form)
+              tactual (str "'" actual "'")
+              texpected (str "'" expected "'")]
+           (concat ['purnam.test/is actual expected] [tactual texpected]))
         form))
     body))
 
@@ -80,7 +76,8 @@
     (list '.toSatisfy 
       (list 'js/expect actual)
       expected
-      tactual texpected)))
+      tactual 
+      texpected)))
 
 (defn is-not-fn 
   ([actual expected]

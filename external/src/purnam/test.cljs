@@ -3,7 +3,10 @@
 
 (if-not (.-jasmine js/window)
     (throw (ex-info "No Jasmine Framework Library Installed. Tests Cannot Proceed" {})))
-    
+
+(defn trim-quote [s]
+ (second (re-find #"^\'(.*)\'$" s)))
+
 (js/beforeEach
      (fn []
        (.addMatchers (js* "this")
@@ -21,9 +24,9 @@
                      notText (if (.-isNot (js* "this")) "Not " "")]
                  (aset (js* "this") "message"
                        (fn []
-                         (str "Expression: " tactual
-                              "\n  Expected: " notText texpected
-                              "\n  Actual: " actualText)))
+                         (str "Expression: " (trim-quote tactual)
+                              "\n  Expected: " notText (trim-quote texpected)
+                              "\n  Result: " actualText)))
                  (cond (= (js/goog.typeOf expected) "array")
                        (js-equals expected actual)
 

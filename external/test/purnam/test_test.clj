@@ -39,9 +39,10 @@
     (aset spec "<V>" (obj :array [1 2 3 4])) 
     (js/describe "<DESC>" 
       (clojure.core/fn [] (it "<IT IS>" 
-          (purnam.test/is <V>.array.<INDEX> <FN> 
-            "<V>.array.<INDEX>" 
-            "<FN>")) nil))))
+          (purnam.test/is (purnam.common/aget-in spec ["<V>" "array" "<INDEX>"])
+            <FN> 
+            "'<V>.array.<INDEX>'" 
+            "'<FN>'")) nil))))
 
 (fact "beforeEach"
   (macroexpand-1

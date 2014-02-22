@@ -2,9 +2,6 @@
   (:require [purnam.common :refer :all]
             [purnam.test.jasmine :refer [describe-fn it-fn is-fn]]))
 
-(add-symbols purnam.common/*exclude-expansion*
-             '[purnam.test fact facts])
-
 (defn find-arrow-positions
   ([forms] (find-arrow-positions forms [] 0))
   ([[f & more] idxs count]

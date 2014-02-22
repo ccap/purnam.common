@@ -53,9 +53,7 @@
   => '(go.n 1)
 
   (j/expand '(do.n 1))
-  => '(let [obj# (purnam.common/aget-in do [])
-            fn# (aget obj# "n")]
-        (.call fn# obj# 1))
+  => '(do.n 1)
 
   (j/expand 'go.n)
   => 'go.n)
