@@ -27,16 +27,6 @@
         (js/describe "<DESCRIPTION>"
                      (clojure.core/fn [] <BODY> nil))))
 
-(.* #'purnam.test/is :name :field)
-
-
-(-> (meta #'purnam.test/is)
-    :name
-    type)
-
-
-(= #'purnam.test/is 'purnam.test/is)
-
 (fact "describe FULL"
   (macroexpand-1
   '(describe
