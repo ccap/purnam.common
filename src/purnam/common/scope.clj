@@ -39,7 +39,8 @@
 
 (defn has-first-element [obj f]
   (and (or (list? obj) (lazy-seq? obj))
-       (f (resolved-sym (first obj)))))
+       (or (f (resolved-sym (first obj)))
+           (f (first obj)))))
 
 (defn change-roots
   ([form old new] (change-roots form old new #{}))

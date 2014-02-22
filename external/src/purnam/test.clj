@@ -3,12 +3,6 @@
             [purnam.test.jasmine :refer [describe-fn it-preprocess it-fn is-fn is-not-fn]]
             [purnam.test.midje :refer [fact-fn]]))
 
-(add-symbols purnam.common/*exclude-expansion*
-             '[purnam.test describe is is-not fact facts])
-
-(add-symbols purnam.common/*exclude-scoping*
-             '[purnam.test is is-not])
-
 (defmacro fact [opts? & body]
   (fact-fn opts? body))
 
@@ -25,8 +19,11 @@
 (defmacro beforeEach [& body]
   (list 'js/beforeEach `(fn [] ~@body)))
 
-(defmacro is [v expected]
-  (is-fn v expected))
+(defmacro is 
+  ([v expected]
+    (is-fn v expected))
+  ([v expected tactual texpected]
+    (is-fn v expected tactual texpected)))
 
 (defmacro is-not [v expected]
   (is-not-fn v expected))

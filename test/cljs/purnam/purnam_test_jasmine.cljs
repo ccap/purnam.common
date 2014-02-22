@@ -39,4 +39,4 @@
 
    (it "globals"
        (is o.|ka| 1)
-       (is (+ o.|ka| o.|kb|) 1)))
+       (is (+ o.|ka| o.|kb|) 3)))

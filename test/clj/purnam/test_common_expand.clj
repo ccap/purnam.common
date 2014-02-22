@@ -59,3 +59,6 @@
 
   (j/expand 'go.n)
   => 'go.n)
+  
+
+(remove-symbols *exclude-expansion* 'go.n)

@@ -9,7 +9,7 @@
                                   [midje "1.6.0"]]
                    :plugins [[lein-cljsbuild "1.0.0"]
                              [lein-midje "3.1.3"]]}}
-  :cljsbuild {:builds [{:source-paths ["src"  "external" "test/cljs"]
+  :cljsbuild {:builds [{:source-paths ["src"  "external/src" "test/cljs"]
                        :compiler {:output-to "test/purnam.common.js"
                                   :optimizations :whitespace
                                   :pretty-print true}}]})

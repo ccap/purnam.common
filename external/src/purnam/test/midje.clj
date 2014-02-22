@@ -2,6 +2,9 @@
   (:require [purnam.common :refer :all]
             [purnam.test.jasmine :refer [describe-fn it-fn is-fn]]))
 
+(add-symbols purnam.common/*exclude-expansion*
+             '[purnam.test fact facts])
+
 (defn find-arrow-positions
   ([forms] (find-arrow-positions forms [] 0))
   ([[f & more] idxs count]
@@ -18,16 +21,18 @@
                 ::nil
 
                 (and (idxs i) (>= (dec i) 0))
-                [::is (nth forms (dec i)) (nth forms (inc i))]
+                (let [actual (nth forms (dec i))
+                      expected (nth forms (inc i))]
+                  [::is actual expected (str actual) (str expected)])
 
                 :else
                 [::norm (nth forms i)]))
          (filter #(not= ::nil %))
          (vec))))
 
-(defn fact-render [[type f1 f2]]
+(defn fact-render [[type f1 f2 f3 f4]]
   (condp = type
-    ::is `(purnam.test/is ~f1 ~f2)
+    ::is `(purnam.test/is ~f1 ~f2 ~f3 ~f4)
     ::norm f1))
 
 (defn double-vec-map? [ele]
