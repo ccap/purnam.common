@@ -20,7 +20,7 @@
                 (and (idxs i) (>= (dec i) 0))
                 (let [actual (nth forms (dec i))
                       expected (nth forms (inc i))]
-                  [::is actual expected (str actual) (str expected)])
+                  [::is actual expected (str "'" actual "'") (str "'" expected "'")])
 
                 :else
                 [::norm (nth forms i)]))
