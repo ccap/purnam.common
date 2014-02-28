@@ -9,7 +9,7 @@ Common utility and code walking functions for the purnam suite.
 Stable Version: 
 
 ```clojure
-[im.chit/purnam.native "0.4.0"]
+[im.chit/purnam.common "0.4.1"]
 ```
 
 #### expand
