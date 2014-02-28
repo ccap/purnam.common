@@ -9,11 +9,7 @@
                                   [midje "1.6.0"]]
                    :plugins [[lein-cljsbuild "1.0.0"]
                              [lein-midje "3.1.3"]]}}
-  :cljsbuild {:builds [#_{:source-paths ["src"  "external/src" "test/cljs" "external/test/cljs"]
-                        :compiler {:output-to "test/purnam.common.js"
+  :cljsbuild {:builds [{:source-paths ["src"  "extern/core/src" "example/purnam/game/src"]
+                        :compiler {:output-to "example/purnam/game/resource/public/crafty-demo.js"
                                    :optimizations :whitespace
-                                   :pretty-print true}}
-                       {:source-paths ["src"  "external/src" "example/src"]
-                        :compiler {:output-to "example/resource/public/crafty-demo.js"
-                                  :optimizations :whitespace
-                                  :pretty-print true}}]})
+                                   :pretty-print true}}]})

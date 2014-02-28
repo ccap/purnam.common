@@ -1,0 +1,9 @@
+[submodule "extern/core"]
+	path = extern/core
+	url = https://github.com/purnam/purnam.core
+[submodule "extern/test"]
+	path = extern/test
+	url = https://github.com/purnam/purnam.test
+[submodule "example/purnam/game"]
+	path = example/purnam/game
+	url = https://github.com/purnam/example.purnam.game
