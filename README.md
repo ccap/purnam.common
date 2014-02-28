@@ -23,7 +23,7 @@ The `purnam.common.expand` namespace has the `expand` function, which walks thro
 What it does it essentially is walk through your code and turn every instance of dotted notation into another call to the `aget-in` and `aset-in` macro:
 
 ```clojure
-(j/expand '(let [a o.x]
+(expand '(let [a o.x]
              a.|b|.c))
 => '(let [a (purnam.common/aget-in o ["x"])] 
        (purnam.common/aget-in a [b "c"]))
@@ -33,14 +33,14 @@ If a symbol is already defined, it will leave the symbol alone:
 
 ```clojure
 (defmacro test.sym [x] nil)
-(j/expand '(purnam.test-common-expand/test.sym 1))
+(expand '(purnam.test-common-expand/test.sym 1))
 => '(test.sym 1)
 ```
 
 If the symbol is not defined and is the first in the list, it will perform a function call:
 
 ```clojure
-(j/expand '(a.b 1))
+(expand '(a.b 1))
 => '(let [obj# (purnam.common/aget-in a [])
           fn#  (aget obj# "b")]
       (.call fn# obj# 1))
