@@ -9,7 +9,7 @@
 
 (add-symbols purnam.common/*exclude-expansion*
              '[purnam.core ? ?> ! !> f.n def.n do.n obj arr def* def*n f*n do*n]
-           '? '?> '! '!> 'f.n 'def.n 'do.n 'obj 'arr 'def* 'def*n 'f*n 'do*n)
+             '? '?> '! '!> 'f.n 'def.n 'do.n 'obj 'arr 'def* 'def*n 'f*n 'do*n)
 
 (defmacro ? [sym]
   (expand-sym sym))

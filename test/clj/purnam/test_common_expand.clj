@@ -40,6 +40,11 @@
   (j/expand '(test.sym 1))
   => '(test.sym 1)
 
+  (j/expand '(let [a o.x]
+               a.|b|.c))
+  => '(let [a (purnam.common/aget-in o ["x"])] 
+         (purnam.common/aget-in a [b "c"]))
+
   (j/expand '(purnam.test-common-expand/test.sym 1))
   => '(purnam.test-common-expand/test.sym 1)
 
