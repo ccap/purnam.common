@@ -50,3 +50,16 @@
                (get ex form))) form
 
            :else (expand-sym form))))
+           
+(comment
+ (if (seq? form)
+    (cond (= 'purnam.core/! (resolved-sym 'purnam.core/!))
+          (throw (Exception. "purnam.core/! hit"))
+
+          (= '! (first form))     
+          (throw (Exception. (format "hit: %s, ns: %s, resolve: %s, all: %s, finally: %s, resolvable: %s" (first form) *ns* (resolve (first form)) 
+              @*exclude-expansion*
+              (resolved-sym (first form))
+              (= 'purnam.core/! (resolved-sym 'purnam.core/!))))
+ 
+          ))))

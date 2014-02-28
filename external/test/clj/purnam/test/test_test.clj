@@ -1,4 +1,4 @@
-(ns purnam.test-test
+(ns purnam.test.test-test
   (:use [midje.sweet :exclude [contains]]
         [purnam.test :exclude [fact facts]]))
 

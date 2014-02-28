@@ -23,7 +23,8 @@
 (defn remove-symbols [atm & args]
   (apply swap! atm disj (create-symbols args)))
 
-(add-symbols *binding-forms* '[clojure.core let loop for doseq if-let when-let])
+(add-symbols *binding-forms* '[clojure.core let loop for doseq if-let when-let]
+                             'let 'loop 'for 'doseq 'if-let 'when-let)
 
 
 ;;----------------------------------------------------------
@@ -72,5 +73,5 @@
     (symbol (str ns "/" name))))
 
 (defn resolved-sym [sym]
-  (if-let [var (suppress (resolve sym))]
+  (if-let [var (suppress (resolve @#'*ns* sym))]
     (var-sym var)))

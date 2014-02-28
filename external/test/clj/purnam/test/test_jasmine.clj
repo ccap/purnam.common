@@ -1,6 +1,7 @@
-(ns purnam.test-test-jasmine
+(ns purnam.test.test-jasmine
   (:use midje.sweet)
   (:require [purnam.test.jasmine :as j]
+            [purnam.core :refer [! ?]]
             [purnam.test :refer [describe it is]]))
 
 (fact "it-fn"
@@ -20,4 +21,13 @@
   => '(let [spec (js-obj)]
         (js/describe "hello"
                      (clojure.core/fn [] <BODY> nil))))
-                  
+
+(fact "describe-fn"
+  (j/describe-fn {:doc "hello"}
+                 '[(it "has stuff"
+                       (is (let [o (js-obj)]
+                             (! o.a 4)
+                             (? o.a))
+                           4))])
+ ;;=> (let [spec (js-obj)] (js/describe "hello" (clojure.core/fn [] (it "has stuff" (purnam.test/is (let [o (js-obj)] (! o.a 4) (? o.a)) 4 "'(let [o (js-obj)] (! o.a 4) (? o.a))'" "'4'")) nil)))
+  )

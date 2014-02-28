@@ -25,7 +25,8 @@
         (apply list `set (map walk-raw form))
 
         (seq? form)
-        (cond (get @*binding-forms* (first form))
+        (cond (or (get @*binding-forms* (resolved-sym (first form)))
+                  (get @*binding-forms* (first form)))
               (walk-binding-form form)
 
               (= 'fn (first form))

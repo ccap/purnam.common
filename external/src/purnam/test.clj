@@ -3,13 +3,12 @@
             [purnam.test.jasmine :refer [describe-fn it-preprocess it-fn is-fn is-not-fn]]
             [purnam.test.midje :refer [fact-fn]]))
 
-
 (add-symbols purnam.common/*exclude-expansion*
            '[purnam.test describe fact facts] 
             'describe 'fact 'facts)
 
 (add-symbols purnam.common/*exclude-scoping*
-            '[purnam.test describe]
+            '[purnam.test describe fact facts]
             'describe 'fact 'facts)
 
 (defmacro fact [opts? & body]

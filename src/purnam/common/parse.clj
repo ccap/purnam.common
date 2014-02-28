@@ -7,7 +7,7 @@
       (conj arr s)))
 
 (defn reconstruct-dotted [output current ss]
-  (str (s/join "." output) "." current (apply str ss)))\
+  (str (s/join "." output) "." current (apply str ss)))
 
 (defmacro split-error [msg]
   `(throw (Exception.

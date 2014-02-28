@@ -2,8 +2,6 @@
   (:require [purnam.common :refer :all]
             [purnam.common.expand :refer [expand]]
             [purnam.common.scope :refer [change-roots-map]]))
-            
-(def ^:dynamic *current-roots* nil)
 
 (def l list)
 
