@@ -7,12 +7,26 @@
         (list 'if-let [bs (list 'aget var (first arr))]
               (aget-in-form bs (next arr))))))
 
+(defn aget-in-form-raw
+  [var arr]
+  (apply list 'aget var arr))
+
+(defn aget-in* [var arr safe?]
+ (condp = (count arr)
+  0 var
+  1 (list 'aget var (first arr))
+  (if safe?
+    (aget-in-form var arr)
+    (aget-in-form-raw var arr))))
+
 (defn nested-val-form [[k & ks] val]
-  (if (nil? k) val
-      (let [bs (gensym)]
-        (list 'let [bs (list 'js-obj)]
-              (list 'aset bs k (nested-val-form ks val))
-              bs))))
+  (cond (nil? k) val
+    
+        :else
+        (let [bs (gensym)]
+          (list 'let [bs (list 'js* "{}")]
+                (list 'aset bs k (nested-val-form ks val))
+                bs))))
 
 (defn aset-in-form* [var [k & ks] val]
   (cond (nil? k) nil
@@ -30,3 +44,9 @@
 (defn aset-in-form [var ks val]
   (list 'do (aset-in-form* var ks val)
         var))
+                
+(defn aset-in* [var arr val]
+  (condp = (count arr)
+   0 (throw (Exception. (str "Cannot set the root element: " var arr)))
+   1 (list 'aset var (first arr) val)
+ (aset-in-form var arr val)))

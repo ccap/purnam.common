@@ -1,4 +1,4 @@
-(defproject im.chit/purnam.common "0.4.1"
+(defproject im.chit/purnam.common "0.4.3"
   :description "Common utility functions for purnam"  
   :url "http://www.github.com/purnam/purnam.common"
   :license {:name "The MIT License"
@@ -9,7 +9,11 @@
                                   [midje "1.6.0"]]
                    :plugins [[lein-cljsbuild "1.0.0"]
                              [lein-midje "3.1.3"]]}}
-  :cljsbuild {:builds [{:source-paths ["src"  "external/src" "test/cljs" "external/test/cljs"]
-                       :compiler {:output-to "test/purnam.common.js"
+  :cljsbuild {:builds [#_{:source-paths ["src"  "external/src" "test/cljs" "external/test/cljs"]
+                        :compiler {:output-to "test/purnam.common.js"
+                                   :optimizations :whitespace
+                                   :pretty-print true}}
+                       {:source-paths ["src"  "external/src" "example/src"]
+                        :compiler {:output-to "example/resource/public/crafty-demo.js"
                                   :optimizations :whitespace
                                   :pretty-print true}}]})

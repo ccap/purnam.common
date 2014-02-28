@@ -1,7 +1,8 @@
 (ns purnam.common
-  (:require [purnam.common.accessors :refer [aget-in-form aset-in-form]]))
+  (:require [purnam.common.accessors :refer [aget-in* aset-in*]]))
 
 ;;----------------------------------------------------------
+(def ^:dynamic *safe-aget* (atom false))
 
 (def ^:dynamic *exclude-expansion* (atom #{}))
 
@@ -28,14 +29,15 @@
 
 
 ;;----------------------------------------------------------
-
+(defmacro set-safe-aget [bool]
+  (reset! *safe-aget* bool)
+  bool)
 
 (defmacro aget-in [var arr]
-  (aget-in-form var (map #(if (symbol? %) % (name %)) arr)))
+  (aget-in* var (map #(if (symbol? %) % (name %)) arr) @*safe-aget*))
 
 (defmacro aset-in [var arr val]
-  (list 'let ['o# var]
-    (aset-in-form 'o# (map #(if (symbol? %) % (name %)) arr) val)))
+  (aset-in* var (map #(if (symbol? %) % (name %)) arr) val))
 
 (defn hash-set? [obj]
   (instance? clojure.lang.APersistentSet obj))
