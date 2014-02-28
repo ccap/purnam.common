@@ -12,8 +12,6 @@ Stable Version:
 [im.chit/purnam.native "0.4.0"]
 ```
 
-## Basics - Implement your own `javascript.dot.notation` macro:
-
 #### expand
 
 The `purnam.common.expand` namespace has the `expand` function, which walks through a form and manipulates 
@@ -73,7 +71,7 @@ The macroexpansion of `aset-in` can also be seen:
 ```
 
 
-#### Write your own
+#### Write your own `javascript.dot.notation` macro:
 
 The `purnam.common` has been designed so that anyone can write their own library implementation. The `do.n` macro from [purnam.core](https://github.com/purnam/purnam.core) is implemented like this:
 
@@ -88,7 +86,7 @@ The `purnam.common` has been designed so that anyone can write their own library
 The `*exclude-expansion*` atom contains a list of symbols that will be ignored when expand is called. Typically, if `do.n` is included inside another form that calls expand on its body, there may be a clash. The call `add-symbol` adds both `purnam.core/do.n` and `do.n` ot the exclusion list. When `expand` comes across the `do.n` symbol, it will stop expanding.
 
 
-## Examples
+## Code Examples
 
 See implementations for current purnam codewalking macros
   - [purnam.core](https://github.com/purnam/purnam.common/blob/master/external/src/purnam/core.clj)
