@@ -105,13 +105,12 @@ It is possible to turn off safe-aget to get better performance or if it interfer
 ```
 For an example of where this was used, see the [crafty.js](https://github.com/purnam/example.purnam.game/blob/master/src/purnam_crafty_game/core.cljs) game example.
 
-
 ## Code Examples
 
 See implementations for current purnam codewalking macros
   - [purnam.core](https://github.com/purnam/purnam.core/blob/master/src/purnam/core.clj)
   - [purnam.test](https://github.com/purnam/purnam.test/blob/master/src/purnam/test.clj)
-
+  
 ## License
 
 Copyright © 2014 Chris Zheng
