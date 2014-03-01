@@ -13,7 +13,10 @@
                         :compiler {:output-to "example/purnam/game/resource/public/crafty-demo.js"
                                    :optimizations :whitespace
                                    :pretty-print true}}
-                       {:source-paths ["src" "extern/core/src" "extern/test/src" "test/cljs" "extern/core/test/cljs" "extern/test/test/cljs"]
+                       {:source-paths ["src" "extern/core/src" "extern/test/src"
+                                       "test/cljs" "extern/core/test/cljs"
+                                       "extern/test/test/cljs" "example/purnam/test/src"
+                                       "example/purnam/test/test"]
                         :compiler {:output-to "target/purnam.common.js"
                                    :optimizations :whitespace
                                    :pretty-print true}}]})

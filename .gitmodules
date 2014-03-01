@@ -7,3 +7,6 @@
 [submodule "example/purnam/game"]
 	path = example/purnam/game
 	url = https://github.com/purnam/example.purnam.game.git
+[submodule "example/purnam/test"]
+	path = example/purnam/test
+	url = https://github.com/purnam/example.purnam.test.git
