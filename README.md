@@ -70,7 +70,6 @@ The macroexpansion of `aset-in` can also be seen:
          dog)
 ```
 
-
 #### Write your own `javascript.dot.notation` macro:
 
 The `purnam.common` has been designed so that anyone can write their own library implementation. The `do.n` macro from [purnam.core](https://github.com/purnam/purnam.core) is implemented like this:
@@ -85,13 +84,33 @@ The `purnam.common` has been designed so that anyone can write their own library
 
 The `*exclude-expansion*` atom contains a list of symbols that will be ignored when expand is called. Typically, if `do.n` is included inside another form that calls expand on its body, there may be a clash. The call `add-symbol` adds both `purnam.core/do.n` and `do.n` ot the exclusion list. When `expand` comes across the `do.n` symbol, it will stop expanding.
 
+#### safe-aget mode
+
+There is a `safe-mode` for `aget-in` which means that evaluation of arbitrary chained dotted forms will always return `nil`:
+
+```clojure
+(let [o (obj)]
+  o.arbitrary.nested.code)
+=> nil
+```
+
+It is possible to turn off safe-aget to get better performance or if it interferes with native code. However, if there is chained dotted forms, it will throw an error.
+
+```clojure
+(purnam.common/set-safe-aget false)
+
+(let [o (obj)]
+  o.arbitrary.nested.code)
+=> (throws Error "'undefined' is not an object")
+```
+For an exampl of where this was used, see the [crafty.js](https://github.com/purnam/example.purnam.game/blob/master/src/purnam_crafty_game/core.cljs) game example.
+
 
 ## Code Examples
 
 See implementations for current purnam codewalking macros
-  - [purnam.core](https://github.com/purnam/purnam.common/blob/master/external/src/purnam/core.clj)
-  - [purnam.test](https://github.com/purnam/purnam.common/blob/master/external/src/purnam/test.clj)
-
+  - [purnam.core](https://github.com/purnam/purnam.core/blob/master/src/purnam/core.clj)
+  - [purnam.test](https://github.com/purnam/purnam.test/blob/master/src/purnam/test.clj)
 
 ## License
 
