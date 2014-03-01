@@ -103,7 +103,7 @@ It is possible to turn off safe-aget to get better performance or if it interfer
   o.arbitrary.nested.code)
 => (throws Error "'undefined' is not an object")
 ```
-For an exampl of where this was used, see the [crafty.js](https://github.com/purnam/example.purnam.game/blob/master/src/purnam_crafty_game/core.cljs) game example.
+For an example of where this was used, see the [crafty.js](https://github.com/purnam/example.purnam.game/blob/master/src/purnam_crafty_game/core.cljs) game example.
 
 
 ## Code Examples
