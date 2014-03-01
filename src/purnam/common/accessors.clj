@@ -50,3 +50,9 @@
    0 (throw (Exception. (str "Cannot set the root element: " var arr)))
    1 (list 'aset var (first arr) val)
  (aset-in-form var arr val)))
+ 
+(defn adelete-in* [var arr]
+  (condp = (count arr)
+   0 (throw (Exception. (str "Cannot delete the root element: " var)))
+   1 (list 'js-delete var (first arr))
+ #_(aset-in-form var arr val)))

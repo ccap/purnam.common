@@ -1,8 +1,8 @@
 (ns purnam.common
-  (:require [purnam.common.accessors :refer [aget-in* aset-in*]]))
+  (:require [purnam.common.accessors :refer [aget-in* aset-in* adelete-in*]]))
 
 ;;----------------------------------------------------------
-(def ^:dynamic *safe-aget* (atom false))
+(def ^:dynamic *safe-aget* (atom true))
 
 (def ^:dynamic *exclude-expansion* (atom #{}))
 
@@ -38,6 +38,19 @@
 
 (defmacro aset-in [var arr val]
   (aset-in* var (map #(if (symbol? %) % (name %)) arr) val))
+
+(defmacro aset-in-obj [var arr val]
+  (list 'let ['o# var]
+    (list 'purnam.common/aset-in 'o# arr val)
+    'o#))
+
+(defmacro adelete-in [var arr]
+  (adelete-in* var (map #(if (symbol? %) % (name %)) arr)))
+
+(defmacro adelete-in-obj [var arr]
+  (list 'let ['o# var]
+    (list 'purnam.common/adelete-in 'o# arr)
+    'o#))
 
 (defn hash-set? [obj]
   (instance? clojure.lang.APersistentSet obj))

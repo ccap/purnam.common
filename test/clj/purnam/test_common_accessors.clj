@@ -2,10 +2,10 @@
   (:use midje.sweet)
   (:require [purnam.common.accessors :as j]
             [purnam.checks :refer :all]))
-            
+
 (fact "aget-in-form"
   (j/aget-in-form 'dog []) => 'dog
-  
+
   (j/aget-in-form 'dog ["leg"])
   => (matches
       '(if-let [%1 (aget dog "leg")]
@@ -14,7 +14,7 @@
   => (matches
       '(if-let [%1 (aget dog leg)]
          %1))
-         
+
   (j/aget-in-form 'dog ["leg" "count"])
   => (matches
       '(if-let [%1 (aget dog "leg")]
@@ -24,9 +24,9 @@
 (fact "nested-val-form"
   (j/nested-val-form ["a" "b"] 'hello)
   => (matches
-      '(let [%1 (js-obj)]
+      '(let [%1 (js* "{}")]
          (aset %1 "a"
-               (let [%2 (js-obj)]
+               (let [%2 (js* "{}")]
                  (aset %2 "b" hello)
                  %2))
          %1)))
@@ -40,7 +40,7 @@
       '(do (if-let [%1 (aget dog "a")]
              (aset %1 "b" "hello")
              (aset dog "a"
-                   (let [%2 (js-obj)]
+                   (let [%2 (js* "{}")]
                      (aset %2 "b" "hello")
                      %2)))
            dog))
@@ -50,13 +50,15 @@
             (if-let [%2 (aget %1 "b")]
               (aset %2 "c" "hello")
               (aset %1 "b"
-                    (let [%3 (js-obj)]
+                    (let [%3 (js* "{}")]
                       (aset %3 "c" "hello") %3)))
             (aset dog "a"
-                  (let [%4 (js-obj)]
+                  (let [%4 (js* "{}")]
                     (aset %4 "b"
-                          (let [%5 (js-obj)]
+                          (let [%5 (js* "{}")]
                             (aset %5 "c" "hello")
                             %5))
                     %4)))
            dog)))
+
+(j/adelete-in* 'a ["a"])
